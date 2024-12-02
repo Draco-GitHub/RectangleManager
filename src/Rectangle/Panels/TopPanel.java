@@ -30,11 +30,13 @@ public class TopPanel extends JPanel {
 
     JComboBox<String> colorComboBox;
 
-    private int id, width, height, x, y;
+    private int id = 0, width = 0, height = 0, x = 0, y = 0;
+
     private Color color;
 
     public TopPanel() {
         setLayout(new GridLayout(3, 4));
+        setBackground(Color.LIGHT_GRAY);
 
         colorComboBox = new JComboBox<>(colorNames);
 
@@ -94,19 +96,19 @@ public class TopPanel extends JPanel {
         return id;
     }
 
-    public int getWidth() {
+    public int getWidthValue() {
         return width;
     }
 
-    public int getHeight() {
+    public int getHeightValue() {
         return height;
     }
 
-    public int getX() {
+    public int getXValue() {
         return x;
     }
 
-    public int getY() {
+    public int getYValue() {
         return y;
     }
 

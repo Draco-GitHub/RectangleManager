@@ -7,6 +7,7 @@ import java.util.Collections;
 public class RectangleManager {
 
     private ArrayList<RectangleShape> rectangles = new ArrayList<>();
+    private RectangleShape currentRectangle;
 
     public boolean addRectangle(RectangleShape rectangle) {
         if (searchRectangle(rectangle.getId()) == null) {
@@ -19,6 +20,7 @@ public class RectangleManager {
     public RectangleShape searchRectangle(int id) {
         for (RectangleShape rectangle : rectangles) {
             if (rectangle.getId() == id) {
+                currentRectangle = rectangle;
                 return rectangle;
             }
         }
@@ -49,6 +51,6 @@ public class RectangleManager {
     }
 
     public RectangleShape getCurrentRectangle() {
-        return rectangles.get(0);
+        return currentRectangle;
     }
 }
