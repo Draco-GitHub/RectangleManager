@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Arrays;
 
 public class RectangleShape implements Comparable<RectangleShape> {
     private Color color;
@@ -35,5 +36,9 @@ public class RectangleShape implements Comparable<RectangleShape> {
     @Override
     public int compareTo(RectangleShape other) {
         return Integer.compare(this.ID, other.ID);
+    }
+
+    public String toString() {
+        return "ID: " + ID + ", width: " + width + ", height: " + height + ", color: " + Arrays.toString(color.getRGBColorComponents(null));
     }
 }

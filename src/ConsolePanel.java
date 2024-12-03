@@ -31,17 +31,19 @@ public class ConsolePanel extends JPanel {
     }
 
     public void setText(String text) {
+        text = "<html>" + text.replace("\n", "<br>") + "</html>";
         textArea.setText(text);
     }
 
     public void appendText(String text) {
-        currentText += text;
+        text = text.replace("\n", "<br>");
+        currentText = currentText.replace("</html", "") + text + "</html>";
         textArea.setText(currentText);
     }
 
-    public void appendError(String error) {
-        String formatted = "<html> <font color='red'>ERROR: " + error + "</font> </html>\n";
-        currentText += formatted;
+    public void appendError(String text) {
+        String formatted = "<html> <font color='red'>ERROR: " + text.replace("\n", "<br>") + "</font> </html>\n";
+        currentText = currentText.replace("</html", "") + text + "</html>";
         textArea.setText(currentText);
     }
 
@@ -49,18 +51,5 @@ public class ConsolePanel extends JPanel {
         textArea.setText("");
         currentText = "";
     }
-
-    private void appendStyledText(String text, Color color) {
-        StyledDocument doc = textArea.getStyledDocument();
-        Style style = doc.addStyle("style", null);
-        StyleConstants.setForeground(style, color);
-        try {
-            doc.insertString(doc.getLength(), text, style);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 }

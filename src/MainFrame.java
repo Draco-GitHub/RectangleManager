@@ -3,11 +3,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
-    private ArrayList<RectangleShape> rectangleList = new ArrayList<>();
 
     private final RectangleManager RECTANGLE_MANAGER = new RectangleManager();
     private final TopPanel topPanel = new TopPanel();
-    private final JPanel centerPanel = new JPanel();
+    private final CenterPanel centerPanel = new CenterPanel(RECTANGLE_MANAGER);
     private final ConsolePanel consolePanel = new ConsolePanel();
     private final JPanel bottomPanel = new JPanel();
 
@@ -29,7 +28,6 @@ public class MainFrame extends JFrame {
     }
 
     private void setupCenterPanel() {
-        centerPanel.setBackground(Color.GRAY);
         consolePanel.enableDynamicResizing();
 
         add(centerPanel, BorderLayout.CENTER);
@@ -104,6 +102,7 @@ public class MainFrame extends JFrame {
 
         if(RECTANGLE_MANAGER.addRectangle(new RectangleShape(id, width, height, x, y, color))) {
             consolePanel.setText("Rectangle Added");
+            centerPanel.repaint();
             return;
         }
 
@@ -123,7 +122,7 @@ public class MainFrame extends JFrame {
 
     private void displaySortedRectangles() {
         // Sort list by ID and display on console
-        rectangleList = RECTANGLE_MANAGER.getSortedRectangles();
+        ArrayList<RectangleShape> rectangleList = RECTANGLE_MANAGER.getSortedRectangles();
         StringBuilder builder = new StringBuilder();
         for(RectangleShape rectangle : rectangleList) {
             builder.append(rectangle).append("\n");

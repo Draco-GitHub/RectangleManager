@@ -26,18 +26,19 @@ public class TopPanel extends JPanel {
 
     JComboBox<String> colorComboBox;
 
-    private static int id;
-    private static int width;
-    private static int height;
-    private static int x;
-    private static int y;
-    private static Color color;
+    private int id;
+    private int width;
+    private int height;
+    private int x;
+    private int y;
+    private Color color;
 
     public TopPanel() {
         setLayout(new GridLayout(3, 4));
         setBackground(Color.LIGHT_GRAY);
 
         colorComboBox = new JComboBox<>(colorNames);
+        color = colorValues[0];
 
         setupField(idField, idLabel, value -> id = value, "ID (Starts with 239)");
         setupField(widthField, widthLabel, value -> width = value, "Width (Even Only)");
