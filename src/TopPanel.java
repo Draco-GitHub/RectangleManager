@@ -1,12 +1,8 @@
-package Rectangle.Panels;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class TopPanel extends JPanel {
@@ -30,9 +26,12 @@ public class TopPanel extends JPanel {
 
     JComboBox<String> colorComboBox;
 
-    private int id = 0, width = 0, height = 0, x = 0, y = 0;
-
-    private Color color;
+    private static int id;
+    private static int width;
+    private static int height;
+    private static int x;
+    private static int y;
+    private static Color color;
 
     public TopPanel() {
         setLayout(new GridLayout(3, 4));
@@ -92,7 +91,7 @@ public class TopPanel extends JPanel {
         add(colorComboBox);
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
