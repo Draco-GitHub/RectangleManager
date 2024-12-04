@@ -11,12 +11,12 @@ public class TopPanel extends JPanel {
     private final Color[] colorValues = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.MAGENTA};
 
 
-    private final JLabel idLabel = new JLabel("ID (Starts with 239)");
-    private final JLabel widthLabel = new JLabel("Width (Even Only)");
-    private final JLabel heightLabel = new JLabel("Height");
-    private final JLabel xLabel = new JLabel("X Position");
-    private final JLabel yLabel = new JLabel("Y Position");
-    private final JLabel colorLabel = new JLabel("Colour");
+    private final JTextPane idLabel = new JTextPane();
+    private final JTextPane widthLabel = new JTextPane();
+    private final JTextPane heightLabel = new JTextPane();
+    private final JTextPane xLabel = new JTextPane();
+    private final JTextPane yLabel = new JTextPane();
+    private final JTextPane colorLabel = new JTextPane();
 
     private final JTextField idField = new JTextField(10);
     private final JTextField widthField = new JTextField(10);
@@ -40,8 +40,29 @@ public class TopPanel extends JPanel {
         colorComboBox = new JComboBox<>(colorNames);
         color = colorValues[0];
 
-        setupField(idField, idLabel, value -> id = value, "ID (Starts with 239)");
-        setupField(widthField, widthLabel, value -> width = value, "Width (Even Only)");
+        idLabel.setEditable(false);
+        widthLabel.setEditable(false);
+        heightLabel.setEditable(false);
+        xLabel.setEditable(false);
+        yLabel.setEditable(false);
+        colorLabel.setEditable(false);
+
+        idLabel.setContentType("text/html");
+        widthLabel.setContentType("text/html");
+        heightLabel.setContentType("text/html");
+        xLabel.setContentType("text/html");
+        yLabel.setContentType("text/html");
+        colorLabel.setContentType("text/html");
+
+        idLabel.setText("ID (Starts with 231)");
+        widthLabel.setText("Width (Odd Only)");
+        heightLabel.setText("Height");
+        xLabel.setText("X Position");
+        yLabel.setText("Y Position");
+        colorLabel.setText("Color");
+
+        setupField(idField, idLabel, value -> id = value, "ID (Starts with 231)");
+        setupField(widthField, widthLabel, value -> width = value, "Width (Odd Only)");
         setupField(heightField, heightLabel, value -> height = value, "Height");
         setupField(xField, xLabel, value -> x = value, "X Position");
         setupField(yField, yLabel, value -> y = value, "Y Position");
@@ -50,7 +71,8 @@ public class TopPanel extends JPanel {
         addComponents();
     }
 
-    private void setupField(JTextField field, JLabel label, Consumer<Integer> onUpdate, String labelText) {
+    private void setupField(JTextField field, JTextPane label, Consumer<Integer> onUpdate, String labelText) {
+
         field.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) { onTextChange(); }
@@ -61,11 +83,16 @@ public class TopPanel extends JPanel {
 
             private void onTextChange() {
                 try {
-                    int value = Integer.parseInt(field.getText());
+                    int value;
+                    if (field.getText().isEmpty()) {
+                        value = 0;
+                    } else {
+                        value = Integer.parseInt(field.getText());
+                    }
                     onUpdate.accept(value);
-                    label.setText(labelText);
+                    label.setText("<html>" + labelText + "</html>");
                 } catch (NumberFormatException e) {
-                    label.setText(labelText + " (Not a number)");
+                    label.setText("<html>" + labelText + "<font color='red'> (Not A Number)</font> </html>");
                 }
             }
         });

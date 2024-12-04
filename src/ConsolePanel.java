@@ -43,7 +43,7 @@ public class ConsolePanel extends JPanel {
 
     public void appendError(String text) {
         String formatted = "<html> <font color='red'>ERROR: " + text.replace("\n", "<br>") + "</font> </html>\n";
-        currentText = currentText.replace("</html", "") + text + "</html>";
+        currentText = currentText.replace("</html", "") + formatted + "</html>";
         textArea.setText(currentText);
     }
 

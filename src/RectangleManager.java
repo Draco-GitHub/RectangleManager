@@ -40,7 +40,7 @@ public class RectangleManager {
     }
 
     public boolean validateId(int id) {
-        return id >= 239000;
+        return id >= 231000 && id <= 232000;
     }
 
     public boolean validateWidth(int width) {

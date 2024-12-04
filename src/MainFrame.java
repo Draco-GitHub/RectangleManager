@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
     private final JPanel bottomPanel = new JPanel();
 
     public MainFrame() {
-        setTitle("Rectangle Manager");
+        setTitle("Shape Manager - ID:2313281");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -71,7 +71,7 @@ public class MainFrame extends JFrame {
         consolePanel.resetTextArea();
 
         if (!RECTANGLE_MANAGER.validateId(id)) {
-            consolePanel.appendError("Invalid ID, please enter a number larger than 239000");
+            consolePanel.appendError("Invalid ID, please enter a number larger than 231000 and smaller than 232000");
             return;
         }
 
@@ -111,13 +111,18 @@ public class MainFrame extends JFrame {
 
     private void searchRectangle() {
         // Find rectangle by ID, display details, draw it
-        int id = topPanel.getID();
-        RectangleShape rectangle = RECTANGLE_MANAGER.searchRectangle(id);
-        if(rectangle != null) {
-            consolePanel.setText("Rectangle found: \n" + rectangle);
-            return;
+        String input = JOptionPane.showInputDialog(this, "Enter the ID you are searching for.", "Search (ID)", JOptionPane.QUESTION_MESSAGE);
+        try {
+            int id = Integer.parseInt(input);
+            RectangleShape rectangle = RECTANGLE_MANAGER.searchRectangle(id);
+            if (rectangle != null) {
+                consolePanel.setText("Rectangle Found: \n" + rectangle);
+                return;
+            }
+            consolePanel.setText("Rectangle Not Found");
+        } catch (NumberFormatException e) {
+            consolePanel.appendError("Invalid ID");
         }
-        consolePanel.setText("Rectangle Not Found");
     }
 
     private void displaySortedRectangles() {
