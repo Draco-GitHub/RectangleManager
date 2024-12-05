@@ -28,12 +28,11 @@ public class MainFrame extends JFrame {
     }
 
     private void setupCenterPanel() {
+        // Create and add a panel for displaying the rectangle
         consolePanel.enableDynamicResizing();
 
         add(centerPanel, BorderLayout.CENTER);
         add(consolePanel, BorderLayout.EAST);
-
-        // Create and add a panel for displaying the rectangle
     }
 
     private void setupBottomPanel() {
@@ -66,7 +65,6 @@ public class MainFrame extends JFrame {
         int x = topPanel.getXValue();
         int y = topPanel.getYValue();
         Color color = topPanel.getColor();
-
 
         consolePanel.resetTextArea();
 
@@ -135,11 +133,16 @@ public class MainFrame extends JFrame {
         consolePanel.setText(builder.toString());
     }
     private void updateRectangle() {
+        if (RECTANGLE_MANAGER.getCurrentRectangle() == null) {
+            consolePanel.appendError("You must search for a rectangle first before editing it");
+            return;
+        }
         int width = topPanel.getWidthValue();
         int height = topPanel.getHeightValue();
         Color color = topPanel.getColor();
         if (RECTANGLE_MANAGER.updateRectangle(width, height, color)) {
             consolePanel.setText("Rectangle Updated");
+            centerPanel.repaint();
         }
     }
 
