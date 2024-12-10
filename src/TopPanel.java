@@ -31,11 +31,11 @@ public class TopPanel extends JPanel {
 
         String[] colorNames = {"Red", "Orange", "Yellow", "Green", "Blue", "Violet"};
         colorComboBox = new JComboBox<>(colorNames);
-        values.put("id", 0);
-        values.put("width", 0);
-        values.put("height", 0);
-        values.put("x", 0);
-        values.put("y", 0);
+        values.put("id", null);
+        values.put("width", null);
+        values.put("height", null);
+        values.put("x", null);
+        values.put("y", null);
         color = colorValues[0];
 
         idLabel.setEditable(false);
@@ -101,15 +101,15 @@ public class TopPanel extends JPanel {
     }
 
     public void clearInputs() {
-        values.put("id", 0);
+        values.put("id", null);
         idField.setText("");
-        values.put("width", 0);
+        values.put("width", null);
         widthField.setText("");
-        values.put("height", 0);
+        values.put("height", null);
         heightField.setText("");
-        values.put("x", 0);
+        values.put("x", null);
         xField.setText("");
-        values.put("y", 0);
+        values.put("y", null);
         yField.setText("");
         color=colorValues[0];
         colorComboBox.setSelectedIndex(0);
@@ -130,23 +130,23 @@ public class TopPanel extends JPanel {
         add(colorComboBox);
     }
 
-    public int getID() {
+    public Integer getID() {
         return values.get("id");
     }
 
-    public int getWidthValue() {
+    public Integer getWidthValue() {
         return values.get("width");
     }
 
-    public int getHeightValue() {
+    public Integer getHeightValue() {
         return values.get("height");
     }
 
-    public int getXValue() {
+    public Integer getXValue() {
         return values.get("x");
     }
 
-    public int getYValue() {
+    public Integer getYValue() {
         return values.get("y");
     }
 

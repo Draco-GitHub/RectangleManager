@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
     private final JPanel bottomPanel = new JPanel();
 
     public MainFrame() {
-        setTitle("Shape Manager - ID:2313281");
+        setTitle("Shape Manager - ID:2313281 - df23933");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -59,14 +59,42 @@ public class MainFrame extends JFrame {
 
     private void addRectangle() {
         // Read values, validate, create RectangleShape, add to list
-        int id = topPanel.getID();
-        int width = topPanel.getWidthValue();
-        int height = topPanel.getHeightValue();
-        int x = topPanel.getXValue();
-        int y = topPanel.getYValue();
+        Integer id = topPanel.getID();
+        Integer width = topPanel.getWidthValue();
+        Integer height = topPanel.getHeightValue();
+        Integer x = topPanel.getXValue();
+        Integer y = topPanel.getYValue();
         Color color = topPanel.getColor();
 
         consolePanel.resetTextArea();
+
+
+        if (id == null) {
+            consolePanel.appendError("Invalid ID, please enter an ID");
+            return;
+        }
+
+        if (width == null) {
+            consolePanel.appendError("Invalid Width, please enter a width");
+            return;
+        }
+
+        if (height == null) {
+            consolePanel.appendError("Invalid Height, please enter a height");
+            return;
+        }
+
+        if (x == null) {
+            consolePanel.appendError("Invalid X, please enter a x position");
+            return;
+        }
+
+        if (y == null) {
+            consolePanel.appendError("Invalid Y, please enter a y position");
+            return;
+        }
+
+
 
         if (!RECTANGLE_MANAGER.validateId(id)) {
             consolePanel.appendError("Invalid ID, please enter a number larger than 231000 and smaller than 232000");
