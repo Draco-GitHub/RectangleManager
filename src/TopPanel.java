@@ -3,13 +3,11 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class TopPanel extends JPanel {
-
-    private final String[] colorNames = {"Red", "Orange", "Yellow", "Green", "Blue", "Violet"};
     private final Color[] colorValues = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.MAGENTA};
-
 
     private final JTextPane idLabel = new JTextPane();
     private final JTextPane widthLabel = new JTextPane();
@@ -25,19 +23,20 @@ public class TopPanel extends JPanel {
     private final JTextField yField = new JTextField(10);
 
     JComboBox<String> colorComboBox;
-
-    private int id;
-    private int width;
-    private int height;
-    private int x;
-    private int y;
+    private static final HashMap<String, Integer> values = new HashMap<>();
     private Color color;
 
     public TopPanel() {
         setLayout(new GridLayout(3, 4));
         setBackground(Color.LIGHT_GRAY);
 
+        String[] colorNames = {"Red", "Orange", "Yellow", "Green", "Blue", "Violet"};
         colorComboBox = new JComboBox<>(colorNames);
+        values.put("id", 0);
+        values.put("width", 0);
+        values.put("height", 0);
+        values.put("x", 0);
+        values.put("y", 0);
         color = colorValues[0];
 
         idLabel.setEditable(false);
@@ -61,17 +60,17 @@ public class TopPanel extends JPanel {
         yLabel.setText("Y Position");
         colorLabel.setText("Color");
 
-        setupField(idField, idLabel, value -> id = value, "ID (Starts with 231)");
-        setupField(widthField, widthLabel, value -> width = value, "Width (Odd Only)");
-        setupField(heightField, heightLabel, value -> height = value, "Height");
-        setupField(xField, xLabel, value -> x = value, "X Position");
-        setupField(yField, yLabel, value -> y = value, "Y Position");
+        setupField(idField, idLabel, "id", "ID (Starts with 231)");
+        setupField(widthField, widthLabel, "width", "Width (Odd Only)");
+        setupField(heightField, heightLabel, "height", "Height");
+        setupField(xField, xLabel, "x", "X Position");
+        setupField(yField, yLabel, "y", "Y Position");
         setupDropdown(colorComboBox);
 
         addComponents();
     }
 
-    private void setupField(JTextField field, JTextPane label, Consumer<Integer> onUpdate, String labelText) {
+    private void setupField(JTextField field, JTextPane label, String valID, String labelText) {
 
         field.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -89,7 +88,7 @@ public class TopPanel extends JPanel {
                     } else {
                         value = Integer.parseInt(field.getText());
                     }
-                    onUpdate.accept(value);
+                    values.put(valID, value);
                     label.setText("<html>" + labelText + "</html>");
                 } catch (NumberFormatException e) {
                     label.setText("<html>" + labelText + "<font color='red'> (Not A Number)</font> </html>");
@@ -102,6 +101,21 @@ public class TopPanel extends JPanel {
         dropdown.addItemListener(e -> {
             color = colorValues[dropdown.getSelectedIndex()];
         });
+    }
+
+    public void clearInputs() {
+        values.put("id", 0);
+        idField.setText("");
+        values.put("width", 0);
+        widthField.setText("");
+        values.put("height", 0);
+        heightField.setText("");
+        values.put("x", 0);
+        xField.setText("");
+        values.put("y", 0);
+        yField.setText("");
+        color=colorValues[0];
+        colorComboBox.setSelectedIndex(0);
     }
 
     private void addComponents() {
@@ -120,23 +134,23 @@ public class TopPanel extends JPanel {
     }
 
     public int getID() {
-        return id;
+        return values.get("id");
     }
 
     public int getWidthValue() {
-        return width;
+        return values.get("width");
     }
 
     public int getHeightValue() {
-        return height;
+        return values.get("height");
     }
 
     public int getXValue() {
-        return x;
+        return values.get("x");
     }
 
     public int getYValue() {
-        return y;
+        return values.get("y");
     }
 
     public Color getColor() {

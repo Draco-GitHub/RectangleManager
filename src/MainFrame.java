@@ -78,11 +78,6 @@ public class MainFrame extends JFrame {
             return;
         }
 
-        if (height < 1) {
-            consolePanel.appendError("Invalid Height, Please enter a number larger than 0");
-            return;
-        }
-
         if (!RECTANGLE_MANAGER.validateWidth(width)) {
             consolePanel.appendError("Invalid Width, Please enter an odd width");
             return;
@@ -90,6 +85,11 @@ public class MainFrame extends JFrame {
 
         if (x + width > centerPanel.getWidth()) {
             consolePanel.appendError("The values you have entered for the x and width are larger than the width of the display panel");
+            return;
+        }
+
+        if (height < 1) {
+            consolePanel.appendError("Invalid Height, Please enter a number larger than 0");
             return;
         }
 
@@ -101,6 +101,7 @@ public class MainFrame extends JFrame {
         if(RECTANGLE_MANAGER.addRectangle(new RectangleShape(id, width, height, x, y, color))) {
             consolePanel.setText("Rectangle Added");
             centerPanel.repaint();
+            topPanel.clearInputs();
             return;
         }
 
@@ -115,6 +116,7 @@ public class MainFrame extends JFrame {
             RectangleShape rectangle = RECTANGLE_MANAGER.searchRectangle(id);
             if (rectangle != null) {
                 consolePanel.setText("Rectangle Found: \n" + rectangle);
+                topPanel.clearInputs();
                 return;
             }
             consolePanel.setText("Rectangle Not Found");
@@ -131,6 +133,7 @@ public class MainFrame extends JFrame {
             builder.append(rectangle).append("\n");
         }
         consolePanel.setText(builder.toString());
+        topPanel.clearInputs();
     }
     private void updateRectangle() {
         if (RECTANGLE_MANAGER.getCurrentRectangle() == null) {
@@ -143,6 +146,7 @@ public class MainFrame extends JFrame {
         if (RECTANGLE_MANAGER.updateRectangle(width, height, color)) {
             consolePanel.setText("Rectangle Updated");
             centerPanel.repaint();
+            topPanel.clearInputs();
         }
     }
 
