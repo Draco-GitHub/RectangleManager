@@ -4,7 +4,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.function.Consumer;
 
 public class TopPanel extends JPanel {
     private final Color[] colorValues = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.MAGENTA};
@@ -98,9 +97,7 @@ public class TopPanel extends JPanel {
     }
 
     private void setupDropdown(JComboBox<String> dropdown) {
-        dropdown.addItemListener(e -> {
-            color = colorValues[dropdown.getSelectedIndex()];
-        });
+        dropdown.addItemListener(e -> color = colorValues[dropdown.getSelectedIndex()]);
     }
 
     public void clearInputs() {
