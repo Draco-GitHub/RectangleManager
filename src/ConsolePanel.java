@@ -10,13 +10,14 @@ public class ConsolePanel extends JPanel {
 
     JTextPane textArea = new JTextPane();
     String currentText = "";
+    boolean history = false;
 
     public ConsolePanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
         textArea.setEditable(false);
         textArea.setContentType("text/html");
-        add(new JScrollPane(textArea));
+        add(new JScrollPane(textArea), BorderLayout.CENTER);
     }
 
     public void enableDynamicResizing() {
@@ -50,6 +51,10 @@ public class ConsolePanel extends JPanel {
     public void resetTextArea() {
         textArea.setText("");
         currentText = "";
+    }
+
+    public void toggleHistory() {
+        history = !history;
     }
 
 }

@@ -44,15 +44,18 @@ public class MainFrame extends JFrame {
         JButton searchRectangle = new JButton("Search Rectangle");
         JButton displaySorted = new JButton("Display All (Sorted)");
         JButton updateRectangle = new JButton("Update Rectangle");
+        JRadioButton toggleHistory = new JRadioButton("Toggle Console History");
         addRectangle.addActionListener(e -> addRectangle());
         searchRectangle.addActionListener(e -> searchRectangle());
         displaySorted.addActionListener(e -> displaySortedRectangles());
         updateRectangle.addActionListener(e -> updateRectangle());
+        toggleHistory.addActionListener(e -> toggleHistory());
 
         bottomPanel.add(addRectangle);
         bottomPanel.add(searchRectangle);
         bottomPanel.add(displaySorted);
         bottomPanel.add(updateRectangle);
+        bottomPanel.add(toggleHistory);
 
         add(bottomPanel, BorderLayout.SOUTH);
     }
@@ -133,7 +136,7 @@ public class MainFrame extends JFrame {
             return;
         }
 
-        consolePanel.setText("Rectangle ID already exists");
+        consolePanel.appendError("Rectangle ID already exists");
     }
 
     private void searchRectangle() {
@@ -147,7 +150,7 @@ public class MainFrame extends JFrame {
                 topPanel.clearInputs();
                 return;
             }
-            consolePanel.setText("Rectangle Not Found");
+            consolePanel.appendError("Rectangle Not Found");
         } catch (NumberFormatException e) {
             consolePanel.appendError("Invalid ID");
         }
@@ -176,6 +179,10 @@ public class MainFrame extends JFrame {
             centerPanel.repaint();
             topPanel.clearInputs();
         }
+    }
+
+    private void toggleHistory() {
+        consolePanel.toggleHistory();
     }
 
     public static void main(String[] args) {
